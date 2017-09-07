@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>BoxerQ - ärendehantering</title>
+    <!--<link href="mystyle.css" rel="stylesheet" type="text/css" media="screen"/>-->
+    <!--<link href="https://fonts.googleapis.com/css?family=Allura" rel="stylesheet"/>-->
+</head>
+<body>
+<h2>BoxerQ</h2>
+<div class="container">
+    <div class="loginbox">
+        <div class="formcontainer">
+            <form action="/login" method="post">
+                <input name="username" type="text" placeholder="Användarnamn" class="inputfield"/>
+                <br/>
+                <input name="password" type="password" placeholder="Lösenord" class="inputfield"/>
+                <br/><br/>
+                <input type="submit" value="Logga in" class="awesomebuttons"/>
+            </form>
+        </div>
+        <div class="formcontainer">
+            <form action="/newuser">
+                <input type="submit" value="Ny användare" class="awesomebuttons"/>
+            </form>
+        </div>
+    </div>
+    <a href="/dbtest">Check database connectivity</a>
+</div>
+</body>
+</html>

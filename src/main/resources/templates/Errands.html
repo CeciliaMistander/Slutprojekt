@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>BoxerQ - ärendehantering</title>
+    <link href="mystyle.css" rel="stylesheet" type="text/css" media="screen"/>
+    <link href="https://fonts.googleapis.com/css?family=Allura" rel="stylesheet"/>
+</head>
+<body>
+<div id="logout">
+    <h2>BoxerQ</h2>
+    <form action="/logout">
+        <input type="submit" value="Logga ut" id="logoutbutton"/>
+    </form>
+</div>
+<br/>
+<br/>
+<div class="queuecontainer">
+    <div class="tablecontainer">
+        <h1>Aktiva ärenden</h1>
+        <br/>
+        <div class="queuebutton">
+            <form action="/submit">
+                <input type="submit" value="Skapa nytt ärende" id="newqueueitembutton"/>
+            </form>
+        </div>
+        <table>
+            <tr class="tableheader">
+                <td class="standard">Medarbetare</td>
+                <td class="standard">Titel</td>
+                <td id="extrawide">Ärende</td>
+                <td class="standard">Status</td>
+            </tr>
+            <tr th:each="errand : ${errands}">
+                <td th:text="${errand.name}"></td>
+                <td th:text="${errand.topic}"></td>
+                <td th:text="${errand.errand}"></td>
+                <td th:text="${errand.status}"></td>
+                <td>
+                    <form th:action="@{/delete/{errandId}/(errandId=${errand.errandId})}" method="post"><input type="submit"
+                                                                                                value="Ta bort"
+                                                                                                class="awesomebuttons"/>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/help/{errandId}/(errandId=${errand.errandId})}" method="post"><input type="submit"
+                                                                                              value="Behandla"
+                                                                                              class="awesomebuttons"/>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>
