@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.sql.DataSource;
+import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,17 @@ public class JdbcRepository implements ErrandRepository {
     }
 
     @Override
+    public void fileErrand (int errandId) {
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement("UPDATE Errands SET status = 'Arkiverad' WHERE errandid = ?")) {
+            ps.setInt(1, errandId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+
+        }
+    }
+
+    @Override
     public void chooseErrand(int errandId) {
         try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement("UPDATE Errands SET status = 'Under behandling' WHERE errandid=?")) {
@@ -71,11 +83,24 @@ public class JdbcRepository implements ErrandRepository {
     public List<Errand> getErrands(){
         try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT errandid, fullname, topic, errand, status FROM errands")) {
+             ResultSet rs = stmt.executeQuery("SELECT errandid, fullname, topic, errand, status FROM errands WHERE status = 'Väntar' OR status = 'Under behandling'")) {
             List<Errand> errands = new ArrayList<>();
             while (rs.next()) errands.add(rsErrands(rs));
             return errands;
         } catch (SQLException e){
+            return null;
+        }
+    }
+
+    @Override
+    public List <Errand> getFiledErrands (){
+        try (Connection conn = dataSource.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT errandid, fullname, topic, errand, status FROM errands WHERE status = 'Arkiverad'")) {
+            List <Errand> filedErrands = new ArrayList<>();
+            while (rs.next()) filedErrands.add(rsFiledErrands(rs));
+            return filedErrands;
+        } catch (SQLException e) {
             return null;
         }
     }
@@ -106,5 +131,9 @@ public class JdbcRepository implements ErrandRepository {
 
     private Users rsUsers(ResultSet rs) throws SQLException {
         return new Users(rs.getLong("userid"), rs.getString("fullname"), rs.getString("username"), rs.getString("password"));
+    }
+
+    private Errand rsFiledErrands (ResultSet rs) throws SQLException {
+        return new Errand(rs.getLong("errandid"), rs.getString("fullname"), rs.getString("topic"), rs.getString("errand"), rs.getString("status"));
     }
 }

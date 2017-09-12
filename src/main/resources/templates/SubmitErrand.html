@@ -2,32 +2,22 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
-    <title>BoxerQ - ärendehantering</title>
-    <link href="mystyle.css" rel="stylesheet" type="text/css" media="screen"/>
-    <link href="https://fonts.googleapis.com/css?family=Allura" rel="stylesheet"/>
+    <title>Boxer Task Manager</title>
 </head>
 <body>
-<h2>BoxerQ</h2>
-<div class="container">
-    <div class="loginbox">
+<h2>Boxer Task Manager</h2>
         <h1>Nytt ärende</h1>
-        <div class="formcontainer">
             <form action="/submit" method="post">
-                <input name="name" type="text" placeholder="Namn" class="inputfield"/>
+                <input name="name" type="text" placeholder="Namn"/>
                 <br/>
-                <input name="topic" type="text" placeholder="Ämne" class="inputfield"/>
+                <input name="topic" type="text" placeholder="Ämne"/>
                 <br/>
-                <input name="errand" type="text area" placeholder="Ärende" class="inputfield"/>
+                <input name="errand" type="text area" placeholder="Ärende"/>
                 <br/><br/>
-                <input type="submit" value="Lägg till ärende" class="awesomebuttons"/>
+                <input type="submit" value="Lägg till ärende"/>
             </form>
-        </div>
-        <div class="formcontainer">
-            <form action="/queue">
-                <input type="submit" value="Avbryt" class="awesomebuttons"/>
+            <form action="/errands">
+                <input type="submit" value="Avbryt"/>
             </form>
-        </div>
-    </div>
-</div>
 </body>
 </html>

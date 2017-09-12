@@ -2,28 +2,24 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
-    <title>BoxerQ - ärendehantering</title>
-    <link href="mystyle.css" rel="stylesheet" type="text/css" media="screen"/>
-    <link href="https://fonts.googleapis.com/css?family=Allura" rel="stylesheet"/>
+    <title>Boxer Task Manager</title>
 </head>
 <body>
-<div id="logout">
-    <h2>BoxerQ</h2>
+    <h2>Boxer Task Manager</h2>
     <form action="/logout">
-        <input type="submit" value="Logga ut" id="logoutbutton"/>
+        <input type="submit" value="Logga ut"/>
     </form>
-</div>
 <br/>
 <br/>
-<div class="queuecontainer">
-    <div class="tablecontainer">
         <h1>Aktiva ärenden</h1>
         <br/>
-        <div class="queuebutton">
             <form action="/submit">
-                <input type="submit" value="Skapa nytt ärende" id="newqueueitembutton"/>
+                <input type="submit" value="Skapa nytt ärende"/>
             </form>
-        </div>
+            <form action="/filed">
+                <input type="submit" value="Se arkiverade ärenden"/>
+            </form>
+
         <table>
             <tr class="tableheader">
                 <td class="standard">Medarbetare</td>
@@ -37,20 +33,21 @@
                 <td th:text="${errand.errand}"></td>
                 <td th:text="${errand.status}"></td>
                 <td>
-                    <form th:action="@{/delete/{errandId}/(errandId=${errand.errandId})}" method="post"><input type="submit"
-                                                                                                value="Ta bort"
-                                                                                                class="awesomebuttons"/>
+                    <form th:action="@{/delete/{errandId}/(errandId=${errand.errandId})}" method="post">
+                        <input type="submit" value="Ta bort"/>
                     </form>
                 </td>
                 <td>
-                    <form th:action="@{/help/{errandId}/(errandId=${errand.errandId})}" method="post"><input type="submit"
-                                                                                              value="Behandla"
-                                                                                              class="awesomebuttons"/>
+                    <form th:action="@{/help/{errandId}/(errandId=${errand.errandId})}" method="post">
+                        <input type="submit" value="Behandla"/>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/file/{errandId}/(errandId=${errand.errandId})}" method="post">
+                        <input type="submit" value="Arkivera"/>
                     </form>
                 </td>
             </tr>
         </table>
-    </div>
-</div>
 </body>
 </html>

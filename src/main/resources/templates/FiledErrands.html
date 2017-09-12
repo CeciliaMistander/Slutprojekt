@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+    <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Boxer Task Manager</title>
+    </head>
+    <body>
+        <h2>Boxer Task Manager</h2>
+            <form action="/logout">
+                <input type="submit" value="Logga ut"/>
+            </form>
+            <br/>
+            <br/>
+        <h1>Arkiverade ärenden</h1>
+            <br/>
+        <form action="/submit">
+            <input type="submit" value="Skapa nytt ärende"/>
+        </form>
+        <form action="/errands">
+            <input type="submit" value="Tillbaka"/>
+        </form>
+        <table>
+            <tr class="tableheader">
+                <td class="standard">Medarbetare</td>
+                <td class="standard">Titel</td>
+                <td id="extrawide">Ärende</td>
+                <td class="standard">Status</td>
+            </tr>
+            <tr th:each="errand : ${filedErrands}">
+                <td th:text="${errand.name}"></td>
+                <td th:text="${errand.topic}"></td>
+                <td th:text="${errand.errand}"></td>
+                <td th:text="${errand.status}"></td>
+            </tr>
+        </table>
+    </body>
+</html>

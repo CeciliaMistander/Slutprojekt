@@ -34,7 +34,6 @@ public class ErrandController {
 
     @PostMapping("/login")
     public String verifyUser(HttpSession session, @RequestParam String username, @RequestParam String password) {
-        System.out.println("Hej");
         if (errandRepository.verifyUser(username,password)) {
             session.setAttribute("user",username);
             return "redirect:/errands";
@@ -53,6 +52,17 @@ public class ErrandController {
         }
     }
 
+    @GetMapping("/filed")
+    public ModelAndView filedErrands (HttpSession session) {
+        if (session.getAttribute("user") !=null) {
+            return new ModelAndView("FiledErrands")
+                    .addObject("filedErrands", errandRepository.getFiledErrands());
+        }
+        else {
+            return new ModelAndView("Index");
+        }
+    }
+
     @PostMapping("/delete/{errandId}")
     public String RefreshErrands(@PathVariable int errandId) {
         errandRepository.deleteErrand(errandId);
@@ -62,6 +72,13 @@ public class ErrandController {
     @PostMapping("/help/{errandId}")
     public String RefreshStatus(@PathVariable int errandId) {
         errandRepository.chooseErrand(errandId);
+        return "redirect:/errands";
+    }
+
+    @PostMapping("/file/{errandId}")
+    public String RefreshWhenFiled(@PathVariable int errandId) {
+        errandRepository.fileErrand(errandId);
+        System.out.println("Hej");
         return "redirect:/errands";
     }
 
@@ -78,7 +95,6 @@ public class ErrandController {
     @PostMapping("/submit")
     public String errand (@RequestParam String name, @RequestParam String topic, @RequestParam String errand)
     {
-
         errandRepository.addErrand(name, topic, errand);
         return "redirect:/errands";
     }

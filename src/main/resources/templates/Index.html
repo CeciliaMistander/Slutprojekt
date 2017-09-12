@@ -2,30 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>BoxerQ - ärendehantering</title>
-    <!--<link href="mystyle.css" rel="stylesheet" type="text/css" media="screen"/>-->
-    <!--<link href="https://fonts.googleapis.com/css?family=Allura" rel="stylesheet"/>-->
+    <title>Boxer Task Manager</title>
 </head>
 <body>
-<h2>BoxerQ</h2>
-<div class="container">
-    <div class="loginbox">
-        <div class="formcontainer">
+<h2>Boxer Task Manager</h2>
             <form action="/login" method="post">
-                <input name="username" type="text" placeholder="Användarnamn" class="inputfield"/>
+                <input name="username" type="text" placeholder="Användarnamn"/>
                 <br/>
-                <input name="password" type="password" placeholder="Lösenord" class="inputfield"/>
+                <input name="password" type="password" placeholder="Lösenord"/>
                 <br/><br/>
-                <input type="submit" value="Logga in" class="awesomebuttons"/>
+                <input type="submit" value="Logga in"/>
             </form>
-        </div>
-        <div class="formcontainer">
             <form action="/newuser">
-                <input type="submit" value="Ny användare" class="awesomebuttons"/>
+                <input type="submit" value="Ny användare"/>
             </form>
-        </div>
-    </div>
+        <br/>
     <a href="/dbtest">Check database connectivity</a>
-</div>
 </body>
 </html>
