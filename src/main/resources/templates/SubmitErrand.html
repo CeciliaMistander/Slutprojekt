@@ -8,7 +8,7 @@
 <h2>Boxer Task Manager</h2>
         <h1>Nytt ärende</h1>
             <form action="/submit" method="post">
-                <input name="name" type="text" placeholder="Namn"/>
+                <span th:text="'Skapas av ' + ${session.user.name}"/>
                 <br/>
                 <input name="topic" type="text" placeholder="Ämne"/>
                 <br/>
@@ -16,6 +16,7 @@
                 <br/><br/>
                 <input type="submit" value="Lägg till ärende"/>
             </form>
+
             <form action="/errands">
                 <input type="submit" value="Avbryt"/>
             </form>
