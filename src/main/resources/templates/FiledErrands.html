@@ -13,24 +13,27 @@
             <br/>
         <h1>Arkiverade ärenden</h1>
             <br/>
-        <form action="/submit">
+        <form th:if="${session.user.admin}=='Nej'" action="/submit">
             <input type="submit" value="Skapa nytt ärende"/>
         </form>
         <form action="/errands">
             <input type="submit" value="Tillbaka"/>
         </form>
+        <br/>
         <table>
             <tr class="tableheader">
-                <td class="standard">Medarbetare</td>
+                <td class="standard">Ägare</td>
                 <td class="standard">Titel</td>
-                <td id="extrawide">Ärende</td>
                 <td class="standard">Status</td>
+                <td>Handläggare</td>
+                <td>Skapad</td>
             </tr>
             <tr th:each="errand : ${filedErrands}">
-                <td th:text="${errand.name}"></td>
-                <td th:text="${errand.topic}"></td>
-                <td th:text="${errand.errand}"></td>
+                <td th:text="${errand.owner}"></td>
+                <td> <a th:href="@{/errands/{errandId}/(errandId=${errand.errandId})}" th:text="${errand.topic}"/></td>
                 <td th:text="${errand.status}"></td>
+                <td th:text="${errand.administrator}"></td>
+                <td th:text="${errand.created}"></td>
             </tr>
         </table>
     </body>

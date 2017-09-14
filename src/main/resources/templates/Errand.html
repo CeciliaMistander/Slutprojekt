@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Boxer Task Manager</title>
+</head>
+<body>
+<h2>Boxer Task Manager</h2>
+<form action="/logout">
+    <input type="submit" value="Logga ut"/>
+</form>
+<form action="/errands">
+    <input type="submit" value="Tillbaka"/>
+</form>
+<br/>
+<br/>
+<h1 th:text="${errand.topic}"/>
+<br/>
+<div th:text="${errand.errand}"/>
+<br/>
+<table>
+    <tr>
+        <td>Ägare</td>
+        <td>Status</td>
+        <td>Handläggare</td>
+        <td>Skapad</td>
+    </tr>
+    <tr>
+        <td th:text="${errand.owner}"></td>
+        <td th:text="${errand.status}"></td>
+        <td th:text="${errand.administrator}"></td>
+        <td th:text="${errand.created}"></td>
+    </tr>
+</table>
+    <form th:if="${session.user.admin}=='Nej' and (${errand.status}=='Väntar' or ${errand.status}=='Under behandling')" th:action="@{/delete/{errandId}/(errandId=${errand.errandId})}" method="post">
+        <input type="submit" value="Ta bort"/>
+    </form>
+    <form th:if="${session.user.admin}=='Nej' and ${errand.status}=='Arkiverad'" th:action="@{/reactivate/{errandId}/(errandId=${errand.errandId})}" method="post">
+        <input type="submit" value="Återuppta"/>
+    </form>
+    <form th:if="${session.user.admin}=='Ja' and ${errand.status}=='Väntar'" th:action="@{/help/{errandId}/(errandId=${errand.errandId})}" method="post">
+        <input type="submit" value="Behandla"/>
+    </form>
+    <form th:if="${errand.status}=='Under behandling' and ${session.user.admin}=='Ja'" th:action="@{/file/{errandId}/(errandId=${errand.errandId})}" method="post">
+        <input type="submit" value="Arkivera"/>
+    </form>
+</body>
+</html>
+
